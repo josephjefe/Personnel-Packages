@@ -1,0 +1,55 @@
+name: Test FTN Access
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test_access:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Install packages
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::httr2
+            any::readr
+
+      - name: Test private FTN data access
+        env:
+          FTN_DATA_PAT: ${{ secrets.FTN_DATA_PAT }}
+        run: |
+          Rscript -e '
+            library(httr2)
+            library(readr)
+
+            YEAR <- 2025
+
+            url <- paste0(
+              "https://api.github.com/repos/",
+              "josephjefe/ftn_data/contents/",
+              "Data/", YEAR, "/all22.csv"
+            )
+
+            all22 <-
+              request(url) |>
+              req_auth_bearer_token(Sys.getenv("FTN_DATA_PAT")) |>
+              req_headers(
+                Accept = "application/vnd.github.raw+json"
+              ) |>
+              req_perform() |>
+              resp_body_string() |>
+              read_csv(show_col_types = FALSE)
+
+            cat("SUCCESS: Private FTN data retrieved.\n")
+            cat("Rows:", nrow(all22), "\n")
+            cat("Columns:", ncol(all22), "\n")
+          '
