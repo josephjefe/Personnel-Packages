@@ -1,0 +1,46 @@
+name: Update Personnel Data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 10 * * 1'
+
+jobs:
+  update_data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Install packages
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::nflreadr
+            any::dplyr
+            any::tidyr
+            any::stringr
+            any::janitor
+            any::httr2
+            any::readr
+
+      - name: Run data processing
+        env:
+          FTN_DATA_PAT: ${{ secrets.FTN_DATA_PAT }}
+        run: |
+          Rscript -e '
+            source("R/get_data.R")
+            source("R/offense_github.R")
+            source("R/defense_github.R")
+          '
+
+      - name: Check generated files
+        run: |
+          echo "Generated data:"
+          find Data -type f -name "*.csv" -print
