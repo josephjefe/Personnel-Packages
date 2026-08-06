@@ -1,0 +1,35 @@
+
+library(httr2)
+library(readr)
+
+# Variables -----
+
+YEAR <- 2025
+
+# Get private FTN data -----
+
+load_ftn_private <- function(type = "all22", year = YEAR) {
+  
+  url <- paste0(
+    "https://api.github.com/repos/",
+    "josephjefe/ftn_data/contents/",
+    "Data/", year, "/", type, ".csv"
+  )
+  
+  httr2::request(url) |>
+    httr2::req_auth_bearer_token(Sys.getenv("FTN_DATA_PAT")) |>
+    httr2::req_headers(
+      Accept = "application/vnd.github.raw+json"
+    ) |>
+    httr2::req_perform() |>
+    httr2::resp_body_string() |>
+    I() |>
+    readr::read_csv(show_col_types = FALSE)
+}
+
+# Retrieve data -----
+
+all22_raw <- load_ftn_private(
+  type = "all22",
+  year = YEAR
+)
