@@ -22,6 +22,11 @@ jobs:
           packages: |
             any::httr2
             any::readr
+            any::nflreadr
+            any::dplyr
+            any::tidyr
+            any::stringr
+            any::janitor
 
       - name: Test private FTN data access
         env:
