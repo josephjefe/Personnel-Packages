@@ -7,8 +7,6 @@ library(readr)
 
 # Data-----
 
-YEAR <- get_current_season()
-
 # Get datasets:
 players <- load_players() |>
   mutate(
