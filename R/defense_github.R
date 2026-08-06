@@ -7,8 +7,6 @@ library(readr)
 
 # Data-----
 
-YEAR <- get_current_season()
-
 # Create year-specific data directory if necessary
 data_dir <- file.path("Data", as.character(YEAR))
 
