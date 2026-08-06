@@ -6,6 +6,13 @@ library(readr)
 
 YEAR <- 2025
 
+# Create year-specific data directory if necessary 
+data_dir <- file.path("Data", YEAR) 
+
+if (!dir.exists(data_dir)) { 
+  dir.create(data_dir, recursive = TRUE) 
+}
+
 # Get private FTN data -----
 
 load_ftn_private <- function(type = "all22", year = YEAR) {
