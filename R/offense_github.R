@@ -122,58 +122,6 @@ off_personnel_players <- off_ftn_pbp |>
     )
   )
 
-off_teams_plays <- off_personnel_teams |>
-  pivot_wider(
-    id_cols = c(
-      nflverse_game_id,
-      week,
-      posteam,
-      defteam
-    ),
-    names_from = offense_personnel,
-    values_from = snaps,
-    values_fill = 0
-  )
-
-off_teams_epa <- off_personnel_teams |>
-  pivot_wider(
-    id_cols = c(
-      nflverse_game_id,
-      week,
-      posteam,
-      defteam
-    ),
-    names_from = offense_personnel,
-    values_from = epa_total,
-    values_fill = 0
-  )
-
-off_teams_success <- off_personnel_teams |>
-  pivot_wider(
-    id_cols = c(
-      nflverse_game_id,
-      week,
-      posteam,
-      defteam
-    ),
-    names_from = offense_personnel,
-    values_from = success_total,
-    values_fill = 0
-  )
-
-off_teams_pass <- off_personnel_teams |>
-  pivot_wider(
-    id_cols = c(
-      nflverse_game_id,
-      week,
-      posteam,
-      defteam
-    ),
-    names_from = offense_personnel,
-    values_from = pass_total,
-    values_fill = 0
-  )
-
 # Save summarized datasets -----
 
 saveRDS(
@@ -182,21 +130,6 @@ saveRDS(
 )
 
 saveRDS(
-  off_teams_plays,
-  file.path(data_dir, "off_teams_plays.rds")
-)
-
-saveRDS(
-  off_teams_epa,
-  file.path(data_dir, "off_teams_epa.rds")
-)
-
-saveRDS(
-  off_teams_success,
-  file.path(data_dir, "off_teams_success.rds")
-)
-
-saveRDS(
-  off_teams_pass,
-  file.path(data_dir, "off_teams_pass.rds")
+  off_personnel_teams,
+  file.path(data_dir, "off_personnel_teams.rds")
 )
