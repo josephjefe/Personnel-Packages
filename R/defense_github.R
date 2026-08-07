@@ -127,6 +127,14 @@ def_personnel_players <- def_ftn_pbp |>
       short_name,
       position_group
     )
+  ) |>
+  mutate(
+    position_group = case_match(
+      position_group,
+      "DL" ~ "Defensive Line",
+      "LB" ~ "Linebackers",
+      "DB" ~ "Defensive Backs"
+    )
   )
 
 # Save summarized datasets -----
