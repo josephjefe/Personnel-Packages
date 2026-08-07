@@ -183,27 +183,27 @@ def_teams_pass <- def_personnel_teams |>
 
 # Save summarized datasets -----
 
-write_csv(
+saveRDS(
   def_personnel_players,
-  file.path(data_dir, "def_personnel_players.csv")
+  file.path(data_dir, "def_personnel_players.rds")
 )
 
-write_csv(
+saveRDS(
   def_teams_plays,
-  file.path(data_dir, "def_teams_plays.csv")
+  file.path(data_dir, "def_teams_plays.rds")
 )
 
-write_csv(
+saveRDS(
   def_teams_epa,
-  file.path(data_dir, "def_teams_epa.csv")
+  file.path(data_dir, "def_teams_epa.rds")
 )
 
-write_csv(
+saveRDS(
   def_teams_success,
-  file.path(data_dir, "def_teams_success.csv")
+  file.path(data_dir, "def_teams_success.rds")
 )
 
-write_csv(
+saveRDS(
   def_teams_pass,
-  file.path(data_dir, "def_teams_pass.csv")
+  file.path(data_dir, "def_teams_pass.rds")
 )
