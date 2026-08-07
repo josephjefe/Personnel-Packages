@@ -3,7 +3,7 @@ library(readr)
 
 # Variables -----
 
-YEAR <- 2025
+YEAR <- get_current_season()
 
 # Create year-specific data directory if necessary
 data_dir <- file.path("Data", YEAR)
