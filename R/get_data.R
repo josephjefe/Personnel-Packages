@@ -1,5 +1,6 @@
 library(httr2)
 library(readr)
+library(nflreadr)
 
 # Variables -----
 
