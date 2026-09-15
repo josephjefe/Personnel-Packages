@@ -46,3 +46,18 @@ all22_raw <- load_ftn_private(
   year = YEAR
 ) |>
   janitor::clean_names()
+
+ftn_mappings_combined <- load_ftn_private(
+  type = "ftn_mappings_combined",
+  year = YEAR
+) |>
+  janitor::clean_names()
+
+readr::write_csv(
+  ftn_mappings_combined,
+  paste0(
+    "./Data/",
+    YEAR,
+    "/ftn_mappings_combined.csv"
+  )
+)
