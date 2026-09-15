@@ -17,7 +17,7 @@ players <- load_players() |>
   )
 
 ftn_pbp_raw <- right_join(
-  load_ftn_charting(),
+  ftn_mappings_combined,
   load_pbp(),
   by = c(
     "nflverse_game_id" = "game_id",
