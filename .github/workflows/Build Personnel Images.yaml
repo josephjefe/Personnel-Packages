@@ -46,6 +46,7 @@ jobs:
             any::nflplotR
             any::digest
             any::readr
+            any::webshot2
             github::josephjefe/jefeR
 
       - name: Build personnel images
