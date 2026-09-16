@@ -15,7 +15,7 @@ library(readr)
 
 # Settings -----------------------------------------------------------------
 
-TARGET_YEAR <- 2026
+TARGET_YEAR <- 2025
 IMAGE_VERSION <- 1
 
 # Get current NFL season
