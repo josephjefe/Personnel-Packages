@@ -15,8 +15,7 @@ library(readr)
 
 # Settings -----------------------------------------------------------------
 
-TARGET_YEAR <- 2025
-IMAGE_VERSION <- 1
+IMAGE_VERSION <- 2
 
 # Get current NFL season
 latest_game <- nflreadr::rds_from_url(
@@ -24,6 +23,7 @@ latest_game <- nflreadr::rds_from_url(
 )
 
 CURRENT_YEAR <- latest_game$year[1]
+TARGET_YEAR <- CURRENT_YEAR
 
 # Create image root directory if it does not exist
 dir.create(
