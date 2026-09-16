@@ -27,9 +27,9 @@ load_ftn_private <- function(type = "all22", year = YEAR) {
   )
 
   httr2::request(url) |>
-    # httr2::req_auth_bearer_token(Sys.getenv("FTN_DATA_PAT")) |>
+    httr2::req_auth_bearer_token(Sys.getenv("FTN_DATA_PAT")) |>
     # Use if in RStudio
-    httr2::req_auth_bearer_token(Sys.getenv("FTN_PAT_2025")) |>
+    # httr2::req_auth_bearer_token(Sys.getenv("FTN_PAT_2025")) |>
     httr2::req_headers(
       Accept = "application/vnd.github.raw+json"
     ) |>
