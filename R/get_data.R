@@ -1,6 +1,5 @@
 library(httr2)
 library(readr)
-library(nflreadr)
 
 # Variables -----
 
@@ -27,9 +26,9 @@ load_ftn_private <- function(type = "all22", year = YEAR) {
   )
 
   httr2::request(url) |>
-    httr2::req_auth_bearer_token(Sys.getenv("FTN_DATA_PAT")) |>
+    # httr2::req_auth_bearer_token(Sys.getenv("FTN_DATA_PAT")) |>
     # Use if in RStudio
-    # httr2::req_auth_bearer_token(Sys.getenv("FTN_PAT_2025")) |>
+    httr2::req_auth_bearer_token(Sys.getenv("FTN_PAT_2025")) |>
     httr2::req_headers(
       Accept = "application/vnd.github.raw+json"
     ) |>
@@ -53,11 +52,23 @@ ftn_mappings_combined <- load_ftn_private(
 ) |>
   janitor::clean_names()
 
-readr::write_csv(
-  ftn_mappings_combined,
-  paste0(
-    "./Data/",
-    YEAR,
-    "/ftn_mappings_combined.csv"
+latest_all22 <- max(all22_raw$game_id)
+
+latest_game <- ftn_mappings_combined |>
+  filter(ftn_game_id == latest_all22) |>
+  slice_head(n = 1) |>
+  select(ftn_game_id, nflverse_game_id) |>
+  separate(
+    nflverse_game_id,
+    into = c("year", "week", "away_team", "home_team"),
+    sep = "_"
+  ) |>
+  mutate(
+    year = as.integer(year),
+    week = as.integer(week)
   )
+
+saveRDS(
+  latest_game,
+  "Data/latest_game.rds"
 )
