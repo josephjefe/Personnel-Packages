@@ -474,7 +474,7 @@ generate_defense <- function(
     ) |>
     gt_theme_jefe(
       img_width = 4.5,
-      caption = "Data: FTNData.com & nflverse.com"
+      caption = "Data: FTNData.com & nflverse.com&nbsp;&nbsp;"
     ) |>
     tab_header(
       title = html(def_title_html),
