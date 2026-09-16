@@ -1,6 +1,9 @@
 library(httr2)
 library(readr)
 library(nflreadr)
+library(janitor)
+library(dplyr)
+library(tidyr)
 
 # Variables -----
 
