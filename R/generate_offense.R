@@ -337,7 +337,28 @@ generate_offense <- function(
     )
   }
 
-  all_offense_table_df <- all_offense_table_df1 |>
+  all_offense_table_df2 <- all_offense_table_df1 |>
+    mutate(
+      across(
+        all_of(pct_cols),
+        ~ ifelse(
+          position_group == "Team Offense" &
+            short_name %in% c("Success Rate", "Pass Rate") &
+            !is.na(.x),
+          paste0(.x, "%"),
+          .x
+        )
+      ),
+      total = ifelse(
+        position_group == "Team Offense" &
+          short_name %in% c("Success Rate", "Pass Rate") &
+          !is.na(total),
+        paste0(total, "%"),
+        total
+      )
+    )
+
+  all_offense_table_df <- all_offense_table_df2 |>
     select(-ends_with("_pct"))
 
   # Table-----
